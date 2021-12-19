@@ -1,36 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import { createTest, getFormInfos } from '../services/API';
+import { createTest } from '../services/API';
 import { Item, TestContainer } from '../styles/AddTestStyles';
+import TestInfos from '../contexts/TestInfos';
 
 export default function AddTest() {
-  const [state, setState] = useState('Carregando');
-  const [formInfos, setFormInfos] = useState({});
   const [link, setLink] = useState('');
   const [semester, setSemester] = useState('');
   const [category, setCategory] = useState('');
   const [subject, setSubject] = useState('');
   const [teacher, setTeacher] = useState('');
   const [teacherList, setTeacherList] = useState([]);
+  const { testInfos } = useContext(TestInfos);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getFormInfos()
-      .then((res) => {
-        setFormInfos(res.data);
-        setTeacherList(res.data?.teachers);
-      })
-      .catch(() => {
-        setState('Erro');
-      });
+    setTeacherList(testInfos.teachers);
   }, []);
 
   useEffect(() => {
     if (subject !== '') {
       setTeacherList(
-        formInfos.teachers.filter((teacherItem) =>
-          formInfos.teacherSubjects.some(
+        testInfos.teachers.filter((teacherItem) =>
+          testInfos.teacherSubjects.some(
             (item) =>
               Number(item.subjectId) === Number(subject) &&
               Number(item.teacherId) === Number(teacherItem.id)
@@ -66,16 +59,9 @@ export default function AddTest() {
         });
       });
   }
-  if (!formInfos?.semesters) {
-    return <>{state}</>;
+  if (!testInfos?.semesters) {
+    return <>Carregando</>;
   }
-  /*
-
-  alguns professores específicos dão algumas das disciplinas.
-   Então pra facilitar o cadastro de provas, após a pessoa selecionar
-   a disciplina, só são exibidos os professores que dão aquela disciplina.
-
-   */
   return (
     <TestContainer>
       <form onSubmit={insertTest}>
@@ -97,7 +83,7 @@ export default function AddTest() {
             <option value="" hidden>
               Semestre
             </option>
-            {formInfos?.semesters.map((item) => (
+            {testInfos?.semesters.map((item) => (
               <option value={item.id} key={item.id}>
                 {item.semester}
               </option>
@@ -114,7 +100,7 @@ export default function AddTest() {
             <option value="" hidden>
               Categoria
             </option>
-            {formInfos?.testCategories.map((item) => (
+            {testInfos?.testCategories.map((item) => (
               <option value={item.id} key={item.id}>
                 {item.category}
               </option>
@@ -134,7 +120,7 @@ export default function AddTest() {
             <option value="" hidden>
               Disciplina
             </option>
-            {formInfos?.subjects.map((item) => (
+            {testInfos?.subjects.map((item) => (
               <option value={item.id} key={item.id}>
                 {item.subject}
               </option>

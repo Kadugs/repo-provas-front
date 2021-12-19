@@ -1,3 +1,11 @@
+import { Link } from 'react-router-dom';
+
 export default function Home() {
-  return <p></p>;
+  return (
+    <>
+      <Link to="/create">Adicionar Prova</Link>
+      <p></p>
+      <Link to="/tests">Ver provas</Link>
+    </>
+  );
 }

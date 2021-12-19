@@ -11,5 +11,11 @@ function createTest(body) {
 function getFormInfos() {
   return axios.get(`${BASE_URL}/infos`);
 }
+function getTeacherList() {
+  return axios.get(`${BASE_URL}/infos/tests/teachers`);
+}
+function getTeacheTestsById(id) {
+  return axios.get(`${BASE_URL}/infos/tests/teachers/${id}`);
+}
 
-export { createTest, getFormInfos };
+export { createTest, getFormInfos, getTeacherList, getTeacheTestsById };

@@ -14,8 +14,21 @@ function getFormInfos() {
 function getTeacherList() {
   return axios.get(`${BASE_URL}/infos/tests/teachers`);
 }
-function getTeacheTestsById(id) {
+function getTeacherTestsById(id) {
   return axios.get(`${BASE_URL}/infos/tests/teachers/${id}`);
 }
+function getSubjectsList() {
+  return axios.get(`${BASE_URL}/infos/tests/subjects`);
+}
+function getSubjectTestsById(id) {
+  return axios.get(`${BASE_URL}/infos/tests/subjects/${id}`);
+}
 
-export { createTest, getFormInfos, getTeacherList, getTeacheTestsById };
+export {
+  createTest,
+  getFormInfos,
+  getTeacherList,
+  getTeacherTestsById,
+  getSubjectsList,
+  getSubjectTestsById,
+};

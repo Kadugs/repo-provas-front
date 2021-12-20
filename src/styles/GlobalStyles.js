@@ -44,5 +44,13 @@ const GlobalStyles = createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  a { 
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+  body {
+    font-family: sans-serif;
+  }
 `;
 export default GlobalStyles;

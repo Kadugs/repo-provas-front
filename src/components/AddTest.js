@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { createTest } from '../services/API';
-import { Item, TestContainer } from '../styles/AddTestStyles';
+import { Item, TestContainer, Button, Form } from '../styles/AddTestStyles';
 import TestInfos from '../contexts/TestInfos';
 
 export default function AddTest() {
@@ -64,7 +64,7 @@ export default function AddTest() {
   }
   return (
     <TestContainer>
-      <form onSubmit={insertTest}>
+      <Form onSubmit={insertTest}>
         <Item>
           <label>Link da prova: </label>
           <input
@@ -144,8 +144,8 @@ export default function AddTest() {
             ))}
           </select>
         </Item>
-        <button type="submit">Enviar Prova</button>
-      </form>
+        <Button type="submit">Enviar Prova</Button>
+      </Form>
     </TestContainer>
   );
 }

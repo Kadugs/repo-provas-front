@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { getSubjectsList } from '../../services/API';
 import ConnectionError from '../../errors/ConnectionError';
+import { ListContainer, Item, Title } from '../../styles/ListStyles';
 
 export default function SubjectsList() {
   const [subjectList, setSubjectList] = useState([]);
@@ -23,24 +24,26 @@ export default function SubjectsList() {
   }
 
   return (
-    <>
-      <h1>Disciplinas</h1>
+    <ListContainer>
+      <Title>
+        <h1>Disciplinas</h1>
+      </Title>
       <ul>
         {subjectList.map((period) => (
           <li key={period.id}>
             <div>
-              <span>{period.period} </span>
+              <span>{period.period} período </span>
             </div>
             <ul>
               {period.subjects.map((subject) => (
-                <li key={subject.id}>
-                  <Link to={`${subject.id}`}>{subject.subject}</Link>
-                </li>
+                <Item key={subject.id}>
+                  <Link to={`${subject.id}`}>- {subject.subject}</Link>
+                </Item>
               ))}
             </ul>
           </li>
         ))}
       </ul>
-    </>
+    </ListContainer>
   );
 }

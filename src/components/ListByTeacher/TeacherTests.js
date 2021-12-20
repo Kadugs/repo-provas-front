@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getTeacherTestsById } from '../../services/API';
 import ConnectionError from '../../errors/ConnectionError';
 import TestsList from '../TestsList';
+import { ListContainer } from '../../styles/ListStyles';
 
 export default function TeacherTests() {
   const [teacherTests, setTeacherTests] = useState([]);
@@ -18,10 +19,10 @@ export default function TeacherTests() {
     return 'Carregando';
   }
   return (
-    <>
+    <ListContainer>
       {teacherTests.map((item) => (
         <TestsList testClass={item} key={item.id} />
       ))}
-    </>
+    </ListContainer>
   );
 }
